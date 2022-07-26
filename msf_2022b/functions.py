@@ -155,6 +155,33 @@ def calculate_angle(rA, rB, rC, degrees=False):
         return theta
 
 
+def calculate_angle_batch(rA, rB, rC, degrees=False):
+    """
+    Calculates angles between a batch of pointis
+
+    Parameters
+    ----------
+    rA, rB, rC: np.ndarray, shape=[N_batch, 3]
+        Setof N_batch coordinates
+
+    Returns
+    -------
+    angles: np.ndarray, shape=[N_batch]
+        Angles between each triplet of input points
+    """
+    AB = rB - rA
+    BC = rB - rC
+    theta = np.arccos(
+        np.einsum("ij,ij->i", AB, BC)
+        / (np.linalg.norm(AB, axis=-1) * np.linalg.norm(BC, axis=-1))
+    )
+
+    if degrees:
+        return np.degrees(theta)
+    else:
+        return theta
+
+
 def bond_histogram(bond_list, save_location=None, dpi=300, graph_min=0, graph_max=2):
     # Draw a histogram of bond lengths based on a bond_list (output from build_bond_list function)
 
