@@ -5,7 +5,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def calculate_distance(rA, rB):
+def calculate_distance(rA: np.ndarray, rB: np.ndarray) -> float:
+    """
+    Calculates distance between two points
+
+    Parameters
+    ----------
+    rA, rB: np.ndarray
+        The coordinates of each point.
+
+    Returns
+    -------
+    dist: np.floating
+        The distance between two ponits
+
+    Examples
+    --------
+    >>> r1 = np.array([0, 0, 0])
+    >>> r2 = np.array([0, 1.0, 0])
+    >>> calculate_distance(r1, r2)
+    1.0
+    """
     # This function calculates the distance between two points given as numpy arrays.
     d = rA - rB
     dist = np.linalg.norm(d)
@@ -13,6 +33,16 @@ def calculate_distance(rA, rB):
 
 
 def open_pdb(f_loc):
+    """
+    The open_pdb function reads in a pdb file and returns the atom names and coordinates.
+    It has one argument: f_loc, which is the location of the pdb file you wish to read in.
+    The function returns two items, c (the coordinates) and sym (the atomic symbols).
+    
+    
+    :param f_loc: Specify the location of the pdb file
+    :return: A list of the atom names and a numpy array of the coordinates
+    :doc-author: Trelent
+    """
     # This function reads in a pdb file and returns the atom names and coordinates.
     with open(f_loc) as f:
         data = f.readlines()
